@@ -1,0 +1,66 @@
+# --- Arquivos Compilados e Runtime do Java ---
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+
+# Logs de erro da JVM
+hs_err_pid*
+
+# --- Específico do Eclipse ---
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.factorypath
+
+# Arquivos de processamento de anotações (Annotation Processing)
+.apt_generated
+.apt_generated_tests
+
+# Builders de ferramentas externas
+.externalToolBuilders/
+
+# Configurações de Launch locais (Run Configurations)
+*.launch
+
+# --- Configurações do Projeto Eclipse (Polêmica: Leia a nota abaixo) ---
+# Se o projeto for Maven/Gradle, é recomendável IGNORAR estes arquivos
+# pois o build tool os gera. Se for apenas Eclipse puro, NÃO ignore.
+# .classpath
+# .project
+
+# --- Maven (Se estiver usando) ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# --- Gradle (Se estiver usando) ---
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- Arquivos de Sistema Operacional ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
