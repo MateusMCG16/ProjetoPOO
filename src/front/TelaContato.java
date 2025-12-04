@@ -25,7 +25,7 @@ public class TelaContato extends JFrame {
     private JLabel labelTelefone;
     private JTextField txtTelefone;
     private JLabel labelCategoria;
-    private JComboBox<Categoria> cbCategoria; // O Combo guarda objetos do tipo Categoria
+    private JComboBox<Categoria> cbCategoria;
     private JButton btnSalvar;
 
     public TelaContato() {
@@ -112,7 +112,7 @@ public class TelaContato extends JFrame {
         contato.setNome(nome);
         contato.setEmail(email);
         contato.setTelefone(telefone);
-        contato.setCategoria(categoriaSelecionada); // Passa o objeto inteiro!
+        contato.setCategoria(categoriaSelecionada);
 
         ContatoDAO dao = new ContatoDAO();
         dao.salvar(contato);
