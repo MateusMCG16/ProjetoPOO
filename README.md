@@ -49,8 +49,6 @@ src/
 │   ├── Contato.java
 │   └── Categoria.java
 └── module-info.java
-│   └── Conexao.java  # Configuração da conexão JDBC
-└── module-info.java
 ```
 
 ## ⚙️ Pré-requisitos e Configuração
@@ -84,7 +82,7 @@ CREATE TABLE Contato (
 );
 ```
 
-3. Verifique a classe `src/pacote/Conexao.java` e ajuste as credenciais se necessário:
+3. Verifique a classe `src/dao/Conexao.java` e ajuste as credenciais se necessário:
    ```java
    private static final String URL = "jdbc:mysql://localhost:3306/SAC";
    private static final String USUARIO = "root"; // Seu usuário
