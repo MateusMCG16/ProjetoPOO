@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
 import modelo.Contato;
-import pacote.Conexao;
+import dao.Conexao;
 
 public class ContatoDAO {
 

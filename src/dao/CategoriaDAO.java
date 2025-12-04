@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
-import pacote.Conexao;
+import dao.Conexao;
 
 public class CategoriaDAO {
 
