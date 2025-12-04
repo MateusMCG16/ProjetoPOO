@@ -21,7 +21,7 @@ O sistema contempla as seguintes funcionalidades:
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![Swing](https://img.shields.io/badge/Swing-GUI-blue?style=for-the-badge)
 
-- **Linguagem**: Java (JDK 11 ou superior)
+- **Linguagem**: Java
 - **Interface Gráfica**: Java Swing
 - **Banco de Dados**: MySQL
 - **Conectividade**: JDBC
