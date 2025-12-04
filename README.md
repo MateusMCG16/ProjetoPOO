@@ -38,7 +38,8 @@ O projeto segue o padrão de arquitetura em camadas (MVC simplificado):
 src/
 ├── dao/          # Data Access Objects - Camada de acesso ao banco de dados
 │   ├── CategoriaDAO.java
-│   └── ContatoDAO.java
+│   ├── ContatoDAO.java
+│   └── Conexao.java
 ├── front/        # Frontend - Telas e Interface Gráfica (Swing)
 │   ├── TelaPrincipal.java
 │   ├── TelaContato.java
@@ -47,7 +48,7 @@ src/
 ├── modelo/       # Modelos - Classes POJO que representam as entidades
 │   ├── Contato.java
 │   └── Categoria.java
-├── pacote/       # Utilitários
+└── module-info.java
 │   └── Conexao.java  # Configuração da conexão JDBC
 └── module-info.java
 ```
