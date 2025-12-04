@@ -1,105 +1,99 @@
-# 📞 SAC - Sistema de Agenda de Contatos
+# SAC - Sistema de Agenda de Contatos
 
-> **Projeto Acadêmico** - Trabalho desenvolvido para a disciplina de Programação Orientada a Objetos / Desenvolvimento de Software.
+**Projeto Acadêmico** - Disciplina de Programação Orientada a Objetos
 
-O **SAC** é uma aplicação Desktop desenvolvida em Java que permite o gerenciamento de contatos pessoais e profissionais, organizados por categorias. O sistema utiliza uma interface gráfica amigável (Swing) e persistência de dados em banco relacional (MySQL).
+O **SAC** é uma aplicação Desktop desenvolvida em Java para o gerenciamento de contatos pessoais e profissionais. O sistema utiliza a biblioteca Swing para a interface gráfica e MySQL para persistência de dados, implementando o padrão de arquitetura MVC (Model-View-Controller).
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
-O sistema oferece as seguintes funcionalidades principais:
+O sistema contempla as seguintes funcionalidades:
 
-- **Gerenciamento de Categorias**:
-  - Cadastro de novas categorias (ex: Família, Trabalho, Amigos).
-- **Gerenciamento de Contatos**:
-  - Cadastro de contatos com Nome, E-mail, Telefone e Categoria.
-  - Associação de contatos a categorias existentes.
-- **Consultas**:
-  - Listagem geral de contatos.
-  - Pesquisa de contatos.
-- **Interface Gráfica**:
-  - Menu principal intuitivo para navegação.
-  - Formulários para entrada de dados.
+- **Gerenciamento de Categorias**: Cadastro e listagem de categorias para organização dos contatos.
+- **Gerenciamento de Contatos**: Cadastro, edição e associação de contatos a categorias.
+- **Consultas**: Listagem e visualização de informações detalhadas dos registros.
+- **Interface Gráfica**: Navegação via menu e formulários para manipulação de dados.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-- **Linguagem**: [Java](https://www.java.com/) (JDK 11 ou superior)
-- **Interface Gráfica**: Java Swing (Biblioteca `java.desktop`)
-- **Banco de Dados**: [MySQL](https://www.mysql.com/)
-- **Conectividade**: JDBC (Java Database Connectivity)
-- **IDE Recomendada**: VS Code, Eclipse ou IntelliJ IDEA
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![Swing](https://img.shields.io/badge/Swing-GUI-blue?style=for-the-badge)
 
-## 📂 Estrutura do Projeto
+- **Linguagem**: Java (JDK 11 ou superior)
+- **Interface Gráfica**: Java Swing
+- **Banco de Dados**: MySQL
+- **Conectividade**: JDBC
+- **IDE**: Eclipse IDE for Java Developers
 
-O projeto segue o padrão de arquitetura em camadas (MVC simplificado):
+## Estrutura do Projeto
+
+O projeto adota a arquitetura MVC para separação de responsabilidades:
 
 ```
 src/
-├── dao/          # Data Access Objects - Camada de acesso ao banco de dados
+├── controller/   # Regras de negócio e controle de fluxo
+│   ├── CategoriaController.java
+│   └── ContatoController.java
+├── dao/          # Camada de acesso a dados (Data Access Object)
 │   ├── CategoriaDAO.java
 │   ├── ContatoDAO.java
 │   └── Conexao.java
-├── front/        # Frontend - Telas e Interface Gráfica (Swing)
+├── front/        # Interface gráfica (View)
 │   ├── TelaPrincipal.java
 │   ├── TelaContato.java
 │   ├── TelaCategoria.java
 │   └── TelaListagem.java
-├── modelo/       # Modelos - Classes POJO que representam as entidades
+├── modelo/       # Entidades de domínio (Model)
 │   ├── Contato.java
 │   └── Categoria.java
 └── module-info.java
 ```
 
-## ⚙️ Pré-requisitos e Configuração
+## Configuração do Banco de Dados
 
-Antes de executar o projeto, certifique-se de ter instalado:
-1.  **Java JDK** (versão 11 ou superior).
-2.  **MySQL Server**.
-3.  **Driver JDBC do MySQL** (arquivo `.jar`) adicionado ao classpath do projeto.
-
-### 🗄️ Configuração do Banco de Dados
-
-1. Crie um banco de dados chamado `SAC` no seu MySQL.
-2. Execute o seguinte script SQL para criar as tabelas necessárias:
+Para a execução do sistema, é necessário configurar o banco de dados MySQL. Utilize o script abaixo para criação da base de dados e tabelas:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS SAC;
 USE SAC;
 
+-- tabela categoria
 CREATE TABLE Categoria (
-    idCategoria INT AUTO_INCREMENT PRIMARY KEY,
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
 );
 
+-- tabela contato
 CREATE TABLE Contato (
-    idContato INT AUTO_INCREMENT PRIMARY KEY,
+    id_contato INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    telefone VARCHAR(20),
-    idCategoria INT,
-    FOREIGN KEY (idCategoria) REFERENCES Categoria(idCategoria)
+    email VARCHAR(150),
+    id_categoria INT NOT NULL, -- foreign key
+    
+    -- relações
+    CONSTRAINT fk_contato_categoria 
+    FOREIGN KEY (id_categoria) 
+    REFERENCES Categoria(id_categoria)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
 );
 ```
 
-3. Verifique a classe `src/dao/Conexao.java` e ajuste as credenciais se necessário:
-   ```java
-   private static final String URL = "jdbc:mysql://localhost:3306/SAC";
-   private static final String USUARIO = "root"; // Seu usuário
-   private static final String SENHA = "sua_senha"; // Sua senha
-   ```
+**Observação**: As credenciais de conexão estão definidas na classe `src/dao/Conexao.java`. Verifique e ajuste as constantes `USUARIO` e `SENHA` conforme a configuração do seu ambiente local.
 
-## ▶️ Como Executar
+## Instruções de Execução
 
-1.  Clone este repositório ou baixe os arquivos.
-2.  Abra o projeto na sua IDE de preferência.
-3.  Certifique-se de que o driver JDBC do MySQL está configurado nas bibliotecas do projeto.
-4.  Execute a classe principal:
-    -   `src/front/TelaPrincipal.java`
+1. Clone o repositório para o seu ambiente local.
+2. Importe o projeto no Eclipse IDE for Java Developers (Recomendado)
+3. Adicione o driver JDBC do MySQL ao `classpath` do projeto.
+4. Execute o script SQL de configuração do banco de dados.
+5. Execute a classe principal `src/front/TelaPrincipal.java`.
 
-## 📝 Autor
+## Licença
 
-Desenvolvido por **Mateus** como parte das atividades acadêmicas.
+Este projeto é de uso acadêmico e livre para fins de estudo.
 
 ---
-*Este projeto é para fins educacionais e demonstração de conceitos de CRUD com Java Swing e JDBC.*
+Desenvolvido por [Mateus](https://github.com/MateusMCG16)
