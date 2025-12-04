@@ -91,9 +91,5 @@ CREATE TABLE Contato (
 4. Execute o script SQL de configuração do banco de dados.
 5. Execute a classe principal `src/front/TelaPrincipal.java`.
 
-## Licença
-
-Este projeto é de uso acadêmico e livre para fins de estudo.
-
 ---
 Desenvolvido por [Mateus](https://github.com/MateusMCG16)
