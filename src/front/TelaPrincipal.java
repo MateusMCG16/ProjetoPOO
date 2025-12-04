@@ -6,12 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
-        setTitle("Sistema de Agenda de Contatos - SAC");
+        setTitle("Sistema de Agenda de Contatos - SAC (MVC)");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

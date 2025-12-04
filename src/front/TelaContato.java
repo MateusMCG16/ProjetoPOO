@@ -1,7 +1,7 @@
 package front;
 
-import dao.CategoriaDAO;
-import dao.ContatoDAO;
+import controller.CategoriaController;
+import controller.ContatoController;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,10 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import modelo.Categoria;
-import modelo.Contato;
 
 public class TelaContato extends JFrame {
 
@@ -71,7 +69,10 @@ public class TelaContato extends JFrame {
         
         cbCategoria = new JComboBox<>();
         cbCategoria.setBounds(240, 215, 200, 25);
+        
+        // Chama método para preencher (agora via controller)
         preencherCategorias();
+        
         add(cbCategoria);
 
         btnSalvar = new JButton("Salvar Contato");
@@ -86,8 +87,8 @@ public class TelaContato extends JFrame {
     }
 
     private void preencherCategorias() {
-        CategoriaDAO dao = new CategoriaDAO();
-        List<Categoria> lista = dao.listar();
+        CategoriaController controller = new CategoriaController();
+        List<Categoria> lista = controller.listar();
         
         cbCategoria.removeAllItems();
         
@@ -97,29 +98,19 @@ public class TelaContato extends JFrame {
     }
 
     private void salvarContato() {
-
         String nome = txtNome.getText();
         String email = txtEmail.getText();
         String telefone = txtTelefone.getText();
         Categoria categoriaSelecionada = (Categoria) cbCategoria.getSelectedItem();
 
-        if (nome.isEmpty() || categoriaSelecionada == null) {
-            JOptionPane.showMessageDialog(this, "Nome e Categoria são obrigatórios!");
-            return;
+        ContatoController controller = new ContatoController();
+        boolean sucesso = controller.salvar(nome, email, telefone, categoriaSelecionada);
+
+        if (sucesso) {
+            txtNome.setText("");
+            txtEmail.setText("");
+            txtTelefone.setText("");
         }
-
-        Contato contato = new Contato();
-        contato.setNome(nome);
-        contato.setEmail(email);
-        contato.setTelefone(telefone);
-        contato.setCategoria(categoriaSelecionada);
-
-        ContatoDAO dao = new ContatoDAO();
-        dao.salvar(contato);
-
-        txtNome.setText("");
-        txtEmail.setText("");
-        txtTelefone.setText("");
     }
 
     public static void main(String[] args) {

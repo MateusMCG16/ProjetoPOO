@@ -1,6 +1,6 @@
 package front;
 
-import dao.ContatoDAO;
+import controller.ContatoController;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -75,19 +75,16 @@ public class TelaListagem extends JFrame {
     }
 
     private void carregarDados(String termo) {
-
         modeloTabela.setRowCount(0);
         
-        ContatoDAO dao = new ContatoDAO();
+        ContatoController controller = new ContatoController();
         List<Contato> lista;
         
-
         if (termo != null && !termo.isEmpty()) {
-            lista = dao.pesquisar(termo);
+            lista = controller.pesquisar(termo);
         } else {
-            lista = dao.listar();
+            lista = controller.listar();
         }
-        
 
         for (Contato c : lista) {
             Object[] linha = {

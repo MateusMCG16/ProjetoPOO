@@ -18,7 +18,6 @@ public class Contato {
         this.categoria = categoria;
     }
 
-    // Getters e Setters
     public int getIdContato() {
         return idContato;
     }

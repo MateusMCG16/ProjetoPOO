@@ -1,16 +1,13 @@
 package front;
 
-import dao.CategoriaDAO;
-import java.awt.Color;
+import controller.CategoriaController;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import modelo.Categoria;
 
 public class TelaCategoria extends JFrame {
 
@@ -57,18 +54,13 @@ public class TelaCategoria extends JFrame {
     private void salvarCategoria() {
         String nome = txtNome.getText();
 
-        if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "O nome não pode ser vazio!");
-            return;
+        CategoriaController controller = new CategoriaController();
+        
+        boolean sucesso = controller.salvar(nome);
+
+        if (sucesso) {
+            txtNome.setText("");
         }
-
-        Categoria novaCategoria = new Categoria();
-        novaCategoria.setNome(nome);
-
-        CategoriaDAO dao = new CategoriaDAO();
-        dao.salvar(novaCategoria);
-
-        txtNome.setText("");
     }
 
     public static void main(String[] args) {

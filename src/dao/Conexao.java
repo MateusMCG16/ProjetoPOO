@@ -1,4 +1,4 @@
-package dao; 
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,13 +8,13 @@ public class Conexao {
     
     private static final String URL = "jdbc:mysql://localhost:3306/SAC"; 
     private static final String USUARIO = "root";
-    private static final String SENHA = "sqlRoot@1"; //
+    private static final String SENHA = "sqlRoot@1"; 
 
-    public static Connection getConexao() {
+    public static Connection getConexao() throws SQLException {
         try {
             return DriverManager.getConnection(URL, USUARIO, SENHA);
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao conectar no banco SAC: " + e.getMessage());
+            throw new SQLException("Erro ao conectar no banco SAC: " + e.getMessage());
         }
     }
 }
