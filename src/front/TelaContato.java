@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import modelo.Categoria;
+import modelo.Contato;
 
 public class TelaContato extends JFrame {
 
@@ -25,6 +26,8 @@ public class TelaContato extends JFrame {
     private JLabel labelCategoria;
     private JComboBox<Categoria> cbCategoria;
     private JButton btnSalvar;
+    
+    private Contato contatoEdicao = null;
 
     public TelaContato() {
         setTitle("Gerenciamento de Contatos");
@@ -34,6 +37,29 @@ public class TelaContato extends JFrame {
         setLocationRelativeTo(null);
 
         iniciarComponentes();
+    }
+    
+    public TelaContato(Contato contato, String nomeCategoria) {
+        this(); // Chama o construtor padrão para iniciar componentes
+        this.contatoEdicao = contato;
+        
+        labelTitulo.setText("Editar Contato");
+        btnSalvar.setText("Atualizar");
+        
+        txtNome.setText(contato.getNome());
+        txtEmail.setText(contato.getEmail());
+        txtTelefone.setText(contato.getTelefone());
+        
+        // Selecionar a categoria no ComboBox
+        if (nomeCategoria != null) {
+            for (int i = 0; i < cbCategoria.getItemCount(); i++) {
+                Categoria c = cbCategoria.getItemAt(i);
+                if (c.getNome().equals(nomeCategoria)) {
+                    cbCategoria.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
     }
 
     private void iniciarComponentes() {
@@ -104,12 +130,22 @@ public class TelaContato extends JFrame {
         Categoria categoriaSelecionada = (Categoria) cbCategoria.getSelectedItem();
 
         ContatoController controller = new ContatoController();
-        boolean sucesso = controller.salvar(nome, email, telefone, categoriaSelecionada);
+        
+        int id = 0;
+        if (contatoEdicao != null) {
+            id = contatoEdicao.getIdContato();
+        }
+        
+        boolean sucesso = controller.salvar(id, nome, email, telefone, categoriaSelecionada);
 
         if (sucesso) {
-            txtNome.setText("");
-            txtEmail.setText("");
-            txtTelefone.setText("");
+            if (contatoEdicao == null) {
+                txtNome.setText("");
+                txtEmail.setText("");
+                txtTelefone.setText("");
+            } else {
+                dispose(); // Fecha a janela se for edição
+            }
         }
     }
 

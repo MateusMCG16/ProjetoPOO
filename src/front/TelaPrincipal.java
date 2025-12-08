@@ -71,8 +71,4 @@ public class TelaPrincipal extends JFrame {
         
         setJMenuBar(menuBar);
     }
-
-    public static void main(String[] args) {
-        new TelaPrincipal().setVisible(true);
-    }
 }

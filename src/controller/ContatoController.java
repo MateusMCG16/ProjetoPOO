@@ -15,7 +15,7 @@ public class ContatoController {
         this.dao = new ContatoDAO();
     }
 
-    public boolean salvar(String nome, String email, String telefone, Categoria categoria) {
+    public boolean salvar(int idContato, String nome, String email, String telefone, Categoria categoria) {
         if (nome == null || nome.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O campo Nome é obrigatório!");
             return false;
@@ -27,17 +27,23 @@ public class ContatoController {
         }
 
         Contato contato = new Contato();
+        contato.setIdContato(idContato);
         contato.setNome(nome);
         contato.setEmail(email);
         contato.setTelefone(telefone);
         contato.setCategoria(categoria);
 
         try {
-            dao.salvar(contato);
-            JOptionPane.showMessageDialog(null, "Contato salvo com sucesso!");
+            if (idContato == 0) {
+                dao.salvar(contato);
+                JOptionPane.showMessageDialog(null, "Contato salvo com sucesso!");
+            } else {
+                dao.atualizar(contato);
+                JOptionPane.showMessageDialog(null, "Contato atualizado com sucesso!");
+            }
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar contato: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar/atualizar contato: " + e.getMessage());
             return false;
         }
     }
@@ -57,6 +63,17 @@ public class ContatoController {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    public boolean excluir(int idContato) {
+        try {
+            dao.excluir(idContato);
+            JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir contato: " + e.getMessage());
+            return false;
         }
     }
 }

@@ -1,95 +1,49 @@
-# SAC - Sistema de Agenda de Contatos
+# Sistema de Agenda de Contatos (SAC)
 
-**Projeto Acadêmico** - Disciplina de Programação Orientada a Objetos
-
-O **SAC** é uma aplicação Desktop desenvolvida em Java para o gerenciamento de contatos pessoais e profissionais. O sistema utiliza a biblioteca Swing para a interface gráfica e MySQL para persistência de dados, implementando o padrão de arquitetura MVC (Model-View-Controller).
-
----
+Projeto simples de agenda de contatos utilizando Java Swing, JDBC e MySQL, seguindo a arquitetura **MVC (Model-View-Controller)** e o padrão **DAO (Data Access Object)**.
 
 ## Funcionalidades
 
-O sistema contempla as seguintes funcionalidades:
+*   **Login**: Acesso restrito via usuário e senha.
+*   **CRUD Completo**:
+    *   **C**adastrar Contatos e Categorias.
+    *   **R** listar e Pesquisar Contatos.
+    *   **U**pdate (Editar) Contatos existentes.
+    *   **D**elete (Excluir) Contatos.
 
-- **Gerenciamento de Categorias**: Cadastro e listagem de categorias para organização dos contatos.
-- **Gerenciamento de Contatos**: Cadastro, edição e associação de contatos a categorias.
-- **Consultas**: Listagem e visualização de informações detalhadas dos registros.
-- **Interface Gráfica**: Navegação via menu e formulários para manipulação de dados.
+## Como Executar
 
-## Tecnologias Utilizadas
+1.  **Banco de Dados**: Crie o banco `SAC` no MySQL usando o script abaixo.
+2.  **Configuração**: Verifique se a senha do banco em `src/dao/Conexao.java` corresponde à sua.
+3.  **Execução**: Rode o arquivo `src/front/TelaLogin.java`.
+4.  **Login**:
+    *   **Usuário**: `admin`
+    *   **Senha**: `admin`
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
-![Swing](https://img.shields.io/badge/Swing-GUI-blue?style=for-the-badge)
-
-- **Linguagem**: Java
-- **Interface Gráfica**: Java Swing
-- **Banco de Dados**: MySQL
-- **Conectividade**: JDBC
-- **IDE**: Eclipse IDE for Java Developers
-
-## Estrutura do Projeto
-
-O projeto adota a arquitetura MVC para separação de responsabilidades:
-
-```
-src/
-├── controller/   # Regras de negócio e controle de fluxo
-│   ├── CategoriaController.java
-│   └── ContatoController.java
-├── dao/          # Camada de acesso a dados (Data Access Object)
-│   ├── CategoriaDAO.java
-│   ├── ContatoDAO.java
-│   └── Conexao.java
-├── front/        # Interface gráfica (View)
-│   ├── TelaPrincipal.java
-│   ├── TelaContato.java
-│   ├── TelaCategoria.java
-│   └── TelaListagem.java
-├── modelo/       # Entidades de domínio (Model)
-│   ├── Contato.java
-│   └── Categoria.java
-└── module-info.java
-```
-
-## Configuração do Banco de Dados
-
-Para a execução do sistema, é necessário configurar o banco de dados MySQL. Utilize o script abaixo para criação da base de dados e tabelas:
+## Script SQL
 
 ```sql
 CREATE DATABASE IF NOT EXISTS SAC;
 USE SAC;
 
--- tabela categoria
 CREATE TABLE Categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
 );
 
--- tabela contato
 CREATE TABLE Contato (
     id_contato INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(150),
-    id_categoria INT NOT NULL, -- foreign key
-    
-    -- relações
-    CONSTRAINT fk_contato_categoria 
-    FOREIGN KEY (id_categoria) 
-    REFERENCES Categoria(id_categoria)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE
+    telefone VARCHAR(20),
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
 );
 ```
 
-**Observação**: As credenciais de conexão estão definidas na classe `src/dao/Conexao.java`. Verifique e ajuste as constantes `USUARIO` e `SENHA` conforme a configuração do seu ambiente local.
+## Estrutura MVC
 
-## Instruções de Execução
-
-1. Clone o repositório para o seu ambiente local.
-2. Importe o projeto no Eclipse IDE for Java Developers (Recomendado)
-3. Adicione o driver JDBC do MySQL ao `classpath` do projeto.
-4. Execute o script SQL de configuração do banco de dados.
-5. Execute a classe principal `src/front/TelaPrincipal.java`.
-
----
-Desenvolvido por [Mateus](https://github.com/MateusMCG16)
+*   **Model**: Classes `Contato` e `Categoria`.
+*   **View (Front)**: Telas (`TelaLogin`, `TelaPrincipal`, `TelaListagem`, etc).
+*   **Controller**: `ContatoController` e `CategoriaController` (Regras de negócio).
+*   **DAO**: `ContatoDAO` e `CategoriaDAO` (Acesso ao banco).
