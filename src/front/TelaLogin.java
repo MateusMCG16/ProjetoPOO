@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox; // Import adicionado
+import javax.swing.JComboBox; 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,18 +13,18 @@ import javax.swing.JTextField;
 
 public class TelaLogin extends JFrame {
 
-    // Componentes promovidos a atributos da classe para serem modificados dinamicamente
+
     private JLabel labelTitulo;
     private JLabel labelUsuario;
     private JLabel labelSenha;
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnEntrar;
-    private JComboBox<String> cbIdioma; // Novo componente para seleção de idioma
+    private JComboBox<String> cbIdioma; //componente para seleção de idioma
 
     public TelaLogin() {
         setTitle("Login - Sistema de Agenda");
-        setSize(350, 300); // Aumentei um pouco a altura
+        setSize(350, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
@@ -33,10 +33,10 @@ public class TelaLogin extends JFrame {
     }
 
     private void iniciarComponentes() {
-        // --- Configuração do Seletor de Idioma ---
+        //Seletor de Idioma
         String[] idiomas = {"Português", "English"};
         cbIdioma = new JComboBox<>(idiomas);
-        cbIdioma.setBounds(220, 10, 100, 25); // Posicionado no canto superior direito
+        cbIdioma.setBounds(220, 10, 100, 25);
         cbIdioma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +81,7 @@ public class TelaLogin extends JFrame {
         add(btnEntrar);
     }
 
-    // Método responsável por traduzir a interface
+    //traduzir a interface
     private void atualizarIdioma() {
         String idiomaSelecionado = (String) cbIdioma.getSelectedItem();
 
@@ -106,7 +106,6 @@ public class TelaLogin extends JFrame {
         String idiomaSelecionado = (String) cbIdioma.getSelectedItem();
 
         if ("admin".equals(usuario) && "admin".equals(senha)) {
-            // Supondo que a classe TelaPrincipal exista no seu projeto
             new TelaPrincipal().setVisible(true);
             this.dispose();
         } else {
